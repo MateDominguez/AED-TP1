@@ -26,9 +26,6 @@
 
 \maketitle
 
-\section{Ejemplo de sección}
-\subsection{Subsección: ambientes comunes de \LaTeX}
-
 Lo principal: las fórmulas. Se puede poner en una linea, como $x_i = x_{i-1} + x_{i-2}$, o ponerse más grande:
 
 \begin{equation}
@@ -36,7 +33,7 @@ Lo principal: las fórmulas. Se puede poner en una linea, como $x_i = x_{i-1} + 
 	\label{eq:1}
 \end{equation}
 
-Y se pueden citar ecuaciones con \verb|\eqref{nombreDeEq}|: \eqref{eq:1}
+%Y se pueden citar ecuaciones con \verb|\eqref{nombreDeEq}|: \eqref{eq:1}
 
 Ejemplo de itemizado:
 
@@ -64,7 +61,7 @@ Le agregamos una separación entre párrafos. Le agregamos una separación entre
 
 \vspace{0.3cm}
 
-La tabla \ref{tab:ejemplo} es un ejemplo de cómo se hace una tabla.
+%La tabla \ref{tab:ejemplo} es un ejemplo de cómo se hace una tabla.
 
 \begin{table}[h!]
 	\centering
@@ -84,7 +81,7 @@ La tabla \ref{tab:ejemplo} es un ejemplo de cómo se hace una tabla.
 \end{table}
 
 
-La figura \ref{fig:subfigs} es un ejemplo de cómo se agrega una imagen.
+%La figura \ref{fig:subfigs} es un ejemplo de cómo se agrega una imagen.
 
 \begin{figure}[ht]
 	\centering
@@ -104,7 +101,7 @@ La figura \ref{fig:subfigs} es un ejemplo de cómo se agrega una imagen.
 		\caption{Logo de TeX}
 		\label{fig:subfig2}
 	\end{subfigure}
-	\caption{Ejemplo para poner dos figuras juntas. Y citarlas por separado a (\subref{fig:subfig1}) y (\subref{fig:subfig2}).}
+	%\caption{Ejemplo para poner dos figuras juntas. Y citarlas por separado a (\subref{fig:subfig1}) y (\subref{fig:subfig2}).}
 	% OJO: el caption siempre va antes del label
 	\label{fig:subfigs}
 \end{figure}
@@ -130,41 +127,39 @@ Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{cod
 % Especificaion punto 1.2
 \subsection{sumaDeHabitantes}
 \begin{proc}{sumaDeHabitantes}{\In menoresDeCiudades : \TLista{Ciudad}, \In mayoresDeCiudades : \TLista{Ciudad}}{\TLista{Ciudad}}
-	\requiere{noHayRepetidos(menoresDeCiudades) \wedge noHayRepetidos(mayoresDeCiudades)}
-	\requiere{|menoresDeCiudades| = |mayoresDeCiudades|}
+	\requiere{noHayCiudadesRepetidas(menoresDeCiudades) \wedge noHayCiudadesRepetidas(mayoresDeCiudades)}
+	\requiere{mismasCiudades(menoresDeCiudades, mayoresDeCiudades)}
 	\asegura{|res| = |s_1|}
-	\asegura{noHayRepetidos(res)}
-	\asegura{(\forall i,j : \ent)(0 \leq i,j < |menoresDeCiudades| \yLuego menoresDeCiudades[i][0] = mayoresDeCiudades[j][0] \implicaLuego (res[i][1] = sumaHabitantes(menoresDeCiudades[i], mayoresDeCiudades[j])))}
+	\asegura{noHayCiudadesRepetidas(res)}
+	\asegura{(\forall i,j : \ent)(0 \leq i,j < |menoresDeCiudades| \yLuego menoresDeCiudades[i][0] = mayoresDeCiudades[j][0] \implicaLuego (res[i][1] = menoresDeCiudades[i][1] + mayoresDeCiudades[j][1])))}
 \end{proc}
 
 \vspace{0.3cm}
 
-\aux{auxiliarSuelto}{parametros}{tipoRes}{expresion}
+\pred{mismasCiudades}{s : \TLista{Ciudad}, t : \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s_1| \implicaLuego (\exists j : \ent)(0 \leq j < |s_2| \yLuego s_1[i][0] = s_2[j][0]))}
 
-\pred{predSuelto}{parametros}{\paraTodo[unalinea]{variable}{tipo}{algo \implicaLuego expresion}}
-\pred{predSuelto}{parametros}{\existe[unalinea]{variable}{tipo}{algo \yLuego expresion}}
 
+\vspace{0.3cm}
 % Especificaion punto 1.4
 \subsection{cantidadCaminosNSaltos}
-\begin{proc}{cantidadCaminosNSaltos}{\Inout s : \TLista{\TLista{\ent}}, \In n : \ent}{\TLista{\TLista{\ent}}}
+\begin{proc}{cantidadCaminosNSaltos}{\Inout s : \TLista{\TLista{\ent}}, \In n : \ent}{}
 	\requiere{s = s_0}
 	\requiere{esCuadrada(s_0)}
 	\requiere{(\forall i,j : \ent)(0 \leq i,j < |s_0|\implicaLuego(s_0[i][j] = s_0[j][i]\wedge(s_0[i][j] = 0 \vee s_0[i][j] = 1)))}
 	\requiere{(\forall i,j : \ent)(((0 \leq i,j < |s_0|)\wedge(i = j))\implicaLuego(s_0[i][j] = 0))}
 	\requiere{n \geq 1}
 	\asegura{|s| = |s_0|}
-	\asegura{esCuadrada(S)}
 	\asegura{(\forall i,j : \ent)(0 \leq i,j < |s|\implicaLuego(s[i][j] = s[j][i]))}
-	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = s_0 \wedge(\forall i : \ent)(0 \leq i < |s_0| - 1 \implicaLuego (APorBEsC(t[i], s_0, t[i+1]) \\ \wedge s = t[n-1])))}
+	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = s_0 \wedge (\forall i,j : \ent)(0 \leq i,j < |t| \implicaLuego |t[i]|=|t[j]| \wedge esCuadrada(t[i])) \yLuego \\ (\forall i : \ent)(0 \leq i < |s_0| - 1 \implicaLuego (APorBEsC(t[i], s_0, t[i+1]))) \wedge s = t[n-1])}
 \end{proc}
 
 \vspace{0.3cm}
 
-\pred{APorBEsC}{A : \TLista{\TLista{\ent}}, B : \TLista{\TLista{\ent}}, C : \TLista{\TLista{\ent}}}{(\forall i,j : \ent)(0 \leq i,j < |C| \implicaLuego (C[i][j] = \sum\limits_{i=0}^{|C| - 1} A[i][j]*B[j][i]))} 
+\pred{APorBEsC}{A : \TLista{\TLista{\ent}}, B : \TLista{\TLista{\ent}}, C : \TLista{\TLista{\ent}}}{(\forall i,j : \ent)(0 \leq i,j < |C| - 1\implicaLuego (C[i][j] = \sum\limits_{k=0}^{|C| - 1} A[i][k]*B[k][j]))}
 
 \vspace{0.3cm}
 
-\subsection{}
+%\subsection{}
 \begin{proc}{nombre}{\In paramIn : \nat, \Inout paramInout : \TLista{\ent}}{tipoRes}
 	%	\modifica{parametro1, parametro2}
 	\requiere{expresionBooleana1}

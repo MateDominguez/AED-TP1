@@ -120,27 +120,27 @@ endwhile
 	\end{lstlisting}
 %\end{minipage}
 
-Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{code:for}.
+%Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{code:for}.
 
 % Punto 1
 \section{Especificacion}
 
 % Especificacion punto 1.1
 \subsection{grandesCiudades}
-\begin{proc}{grandesCiudades}{\In ciudades : \TLista{Ciudad}}{\TLista{Ciudad}}
+\begin{proc}{grandesCiudades}{\In ciudades: \TLista{Ciudad}}{\TLista{Ciudad}}
 	\requiere{\neg ciudadesRepetidas(ciudades)}
 	\asegura{\neg ciudadesRepetidas(res) \wedge (\forall i : \ent)(0 \leq i < |res| \implicaLuego res[i] \in ciudades \wedge res[i][1] > 50.000)}
 \end{proc}
 
 \vspace{0.3cm}
 
-\pred{ciudadesRepetidas}{s : \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s| \implicaLuego (\exists j : \ent)(0 \leq j < |s| \wedge i \neq j \yLuego s[i] = s[j]))}
+\pred{ciudadesRepetidas}{s: \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s| \implicaLuego (\exists j : \ent)(0 \leq j < |s| \wedge i \neq j \yLuego s[i] = s[j]))}
 
 \vspace{0.3cm}
 
 % Especificaion punto 1.2
 \subsection{sumaDeHabitantes}
-\begin{proc}{sumaDeHabitantes}{\In menoresDeCiudades : \TLista{Ciudad}, \In mayoresDeCiudades : \TLista{Ciudad}}{\TLista{Ciudad}}
+\begin{proc}{sumaDeHabitantes}{\In menoresDeCiudades: \TLista{Ciudad}, \In mayoresDeCiudades: \TLista{Ciudad}}{\TLista{Ciudad}}
 	\requiere{\neg ciudadesRepetidas(menoresDeCiudades) \wedge \neg ciudadesRepetidas(mayoresDeCiudades)}
 	\requiere{mismasCiudades(menoresDeCiudades, mayoresDeCiudades)}
 	\asegura{|res| = |s_1|}
@@ -150,45 +150,68 @@ Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{cod
 
 \vspace{0.3cm}
 
-\pred{mismasCiudades}{s : \TLista{Ciudad}, t : \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s_1| \implicaLuego (\exists j : \ent)(0 \leq j < |s_2| \yLuego s_1[i][0] = s_2[j][0]))}
+\pred{mismasCiudades}{s: \TLista{Ciudad}, t: \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s_1| \implicaLuego (\exists j : \ent)(0 \leq j < |s_2| \yLuego s_1[i][0] = s_2[j][0]))}
 
 \vspace{0.3cm}
 
-% Especificaion punto 1.4
-\subsection{cantidadCaminosNSaltos}
-\begin{proc}{cantidadCaminosNSaltos}{\Inout s : \TLista{\TLista{\ent}}, \In n : \ent}{}
-	\requiere{s = s_0}
-	\requiere{esMatrizCuadrada(s_0)}
-	\requiere{(\forall i,j : \ent)(0 \leq i,j < |s_0|\implicaLuego(s_0[i][j] = s_0[j][i]\wedge(s_0[i][j] = 0 \vee s_0[i][j] = 1)))}
-	\requiere{(\forall i,j : \ent)(((0 \leq i,j < |s_0|)\wedge(i = j))\implicaLuego(s_0[i][j] = 0))}
-	\requiere{n \geq 1}
-	\asegura{|s| = |s_0|}
-	\asegura{(\forall i,j : \ent)(0 \leq i,j < |s|\implicaLuego(s[i][j] = s[j][i]))}
-	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = s_0 \wedge (\forall i,j : \ent)(0 \leq i,j < |t| \implicaLuego |t[i]|=|t[j]| \yLuego esCuadrada(t[i])) \yLuego \\ (\forall i : \ent)(0 \leq i < |s_0| - 1 \implicaLuego (APorBEsC(t[i], s_0, t[i+1]))) \wedge s = t[n-1])}
+% Especificacion punto 1.3
+\subsection{hayCamino}
+\begin{proc}{hayCamino}{\In distancias: \TLista{\TLista{\ent}}, \In desde: \ent, \In hasta: \ent}{Bool}
+	\requiere{esCuadrada(distancias)}
+	\requiere{(\forall i,j : \ent)(0 \leq i,j < |s| \implicaLuego s[i][j] = s[j][i] \wedge s[i][j] \geq 0)}
+	\requiere{0 \leq desde,hasta < |distancias|}
+	\asegura{res = True \iff (\exists t : \TLista{\ent})(esCamino(distancias, t, desde, hasta))}
 \end{proc}
 
 \vspace{0.3cm}
 
 \pred{esCuadrada}{A : \TLista{\TLista{\ent}}}{(\forall i : \ent)(0 \leq i < |A| \implicaLuego |A[i]| = |A|)}
-\pred{APorBEsC}{A : \TLista{\TLista{\ent}}, B : \TLista{\TLista{\ent}}, C : \TLista{\TLista{\ent}}}{(\forall i,j : \ent)(0 \leq i,j < |C| - 1\implicaLuego (C[i][j] = \sum\limits_{k=0}^{|C| - 1} A[i][k]*B[k][j]))}
+\vspace{0.1cm}
+\pred{esCamino}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}, n: \ent, m: \ent}{(2 \leq |t| \leq |s| \wedge t[0] = n \wedge t[|t|-1] = m \wedge (\forall i : \ent)(0 \leq i < |t|-1 \implicaLuego 0 \leq t[i] < |s| \wedge s[t[i]][t[i+1]] > 0))}
 
 \vspace{0.3cm}
 
-%\subsection{}
-\begin{proc}{nombre}{\In paramIn : \nat, \Inout paramInout : \TLista{\ent}}{tipoRes}
-	%	\modifica{parametro1, parametro2}
-	\requiere{expresionBooleana1}
-	\asegura{expresionBooleana2}
-	\aux{auxiliar1}{parametros}{tipoRes}{expresion}
-	\pred{pred1}{parametros}{expresion} 
+% Especificaion punto 1.4
+\subsection{cantidadCaminosNSaltos}
+\begin{proc}{cantidadCaminosNSaltos}{\Inout conexion: \TLista{\TLista{\ent}}, \In n: \ent}{}
+	\requiere{conexion = C_0}
+	\requiere{esCuadrada(C_0)}
+	\requiere{(\forall i,j : \ent)(0 \leq i,j < |C_0|\implicaLuego(C_0[i][j] = C_0[j][i]\wedge(C_0[i][j] = 0 \vee C_0[i][j] = 1)))}
+	\requiere{(\forall i,j : \ent)(((0 \leq i,j < |C_0|)\wedge(i = j))\implicaLuego(C_0[i][j] = 0))}
+	\requiere{n \geq 1}
+	\asegura{|conexion| = |C_0|}
+	\asegura{(\forall i,j : \ent)(0 \leq i,j < |conexion| \implicaLuego conexion[i][j] = conexion[j][i])}
+	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = C_0 \wedge (\forall i,j : \ent)(0 \leq i < |t| - 1 \wedge 0 \leq j < |t| \implicaLuego |t[i]|=|t[j]| \wedge \\esCuadrada(t[j]) \wedge APorBEsC(t[i], C_0, t[i+1])) \wedge conexion = t[n-1])}
 \end{proc}
 
-\aux{auxiliarSuelto}{parametros}{tipoRes}{expresion}
+\vspace{0.3cm}
+
+\pred{APorBEsC}{A : \TLista{\TLista{\ent}}, B : \TLista{\TLista{\ent}}, C : \TLista{\TLista{\ent}}}{(\forall i,j : \ent)(0 \leq i,j < |C| \implicaLuego (C[i][j] = \sum\limits_{k=0}^{|C| - 1} A[i][k]*B[k][j]))}
+
+\vspace{0.3cm}
+
+% Especificacion punto 1.5
+\subsection{caminoMinimo}
+\begin{proc}{caminoMinimo}{\In origen: \ent, \In destino: \ent, \In distancias: \TLista{\TLista{\ent}}}{\TLista{\ent}}
+	\requiere{esCuadrada(distancias)}
+	\requiere{(\forall i,j : \ent)(0 \leq i,j < |s| \implicaLuego s[i][j] = s[j][i] \wedge s[i][j] \geq 0)}
+	\requiere{0 \leq origen,destino < |distancias|}
+	\asegura{res = \ensuremath{\langle\rangle} \iff \neg conectadas(distancias, origen, hasta)}
+	\asegura{esCamino(distancias, res, origen, destino) \wedge esMinimo(distancias, res, origen, destino)}
+\end{proc}
+
+\vspace{0.3cm}
+
+\pred{esMinimo}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}, n: \ent, m: \ent}{(\forall w: \TLista{\ent})(esCamino(s, w, n, m) \implicaLuego sumaDistancias(s,t) \leq sumaDistancias(s,w))}
+\aux{sumaDistancias}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}}{\ent}{\sum\limits_{i=0}^{|t| - 2} s[t[i]][t[i+1]]}
+
+
+%\aux{auxiliarSuelto}{parametros}{tipoRes}{expresion}
 % \paraTodo{variable}{tipo}{expresion}
 % \existe{variable}{tipo}{expresion}
 % Pueden tener [unalinea] para que no se divida en varias lineas
-\pred{predSuelto}{parametros}{\paraTodo[unalinea]{variable}{tipo}{algo \implicaLuego expresion}}
-\pred{predSuelto}{parametros}{\existe[unalinea]{variable}{tipo}{algo \yLuego expresion}}
+%\pred{predSuelto}{parametros}{\paraTodo[unalinea]{variable}{tipo}{algo \implicaLuego expresion}}
+%\pred{predSuelto}{parametros}{\existe[unalinea]{variable}{tipo}{algo \yLuego expresion}}
 
 
 

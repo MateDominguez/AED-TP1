@@ -129,8 +129,12 @@ Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{cod
 \subsection{grandesCiudades}
 \begin{proc}{grandesCiudades}{\In ciudades : \TLista{Ciudad}}{\TLista{Ciudad}}
 	\requiere{\neg ciudadesRepetidas(ciudades)}
-	\asegura{(\forall i : \ent)(0 \leq i < |res| \implicaLuego res[i] \in ciudades \wedge res[i][1] > 50.000)}
+	\asegura{\neg ciudadesRepetidas(res) \wedge (\forall i : \ent)(0 \leq i < |res| \implicaLuego res[i] \in ciudades \wedge res[i][1] > 50.000)}
 \end{proc}
+
+\vspace{0.3cm}
+
+\pred{ciudadesRepetidas}{s : \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s| \implicaLuego (\exists j : \ent)(0 \leq j < |s| \wedge i \neq j \yLuego s[i] = s[j]))}
 
 \vspace{0.3cm}
 
@@ -147,7 +151,6 @@ Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{cod
 \vspace{0.3cm}
 
 \pred{mismasCiudades}{s : \TLista{Ciudad}, t : \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s_1| \implicaLuego (\exists j : \ent)(0 \leq j < |s_2| \yLuego s_1[i][0] = s_2[j][0]))}
-\pred{ciudadesRepetidas}{s : \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s| \implicaLuego (\exists j : \ent)(0 \leq j < |s| \wedge i \neq j \wedge s[i] = s[j]))}
 
 \vspace{0.3cm}
 
@@ -155,17 +158,18 @@ Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{cod
 \subsection{cantidadCaminosNSaltos}
 \begin{proc}{cantidadCaminosNSaltos}{\Inout s : \TLista{\TLista{\ent}}, \In n : \ent}{}
 	\requiere{s = s_0}
-	\requiere{esCuadrada(s_0)}
+	\requiere{esMatrizCuadrada(s_0)}
 	\requiere{(\forall i,j : \ent)(0 \leq i,j < |s_0|\implicaLuego(s_0[i][j] = s_0[j][i]\wedge(s_0[i][j] = 0 \vee s_0[i][j] = 1)))}
 	\requiere{(\forall i,j : \ent)(((0 \leq i,j < |s_0|)\wedge(i = j))\implicaLuego(s_0[i][j] = 0))}
 	\requiere{n \geq 1}
 	\asegura{|s| = |s_0|}
 	\asegura{(\forall i,j : \ent)(0 \leq i,j < |s|\implicaLuego(s[i][j] = s[j][i]))}
-	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = s_0 \wedge (\forall i,j : \ent)(0 \leq i,j < |t| \implicaLuego |t[i]|=|t[j]| \wedge esCuadrada(t[i])) \yLuego \\ (\forall i : \ent)(0 \leq i < |s_0| - 1 \implicaLuego (APorBEsC(t[i], s_0, t[i+1]))) \wedge s = t[n-1])}
+	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = s_0 \wedge (\forall i,j : \ent)(0 \leq i,j < |t| \implicaLuego |t[i]|=|t[j]| \yLuego esCuadrada(t[i])) \yLuego \\ (\forall i : \ent)(0 \leq i < |s_0| - 1 \implicaLuego (APorBEsC(t[i], s_0, t[i+1]))) \wedge s = t[n-1])}
 \end{proc}
 
 \vspace{0.3cm}
 
+\pred{esCuadrada}{A : \TLista{\TLista{\ent}}}{(\forall i : \ent)(0 \leq i < |A| \implicaLuego |A[i]| = |A|)}
 \pred{APorBEsC}{A : \TLista{\TLista{\ent}}, B : \TLista{\TLista{\ent}}, C : \TLista{\TLista{\ent}}}{(\forall i,j : \ent)(0 \leq i,j < |C| - 1\implicaLuego (C[i][j] = \sum\limits_{k=0}^{|C| - 1} A[i][k]*B[k][j]))}
 
 \vspace{0.3cm}

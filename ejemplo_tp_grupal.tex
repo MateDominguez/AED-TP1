@@ -6,7 +6,7 @@
 
 
 \titulo{Trabajo practico 1}
-\subtitulo{Especificacion y WP}
+\subtitulo{Especificacion y Weakest Precondition}
 
 \fecha{\today}
 
@@ -109,16 +109,6 @@ Le agregamos una separación entre párrafos. Le agregamos una separación entre
 
 
 % Para hacer que quede todo en una misma linea, se puede usar minipage
-%\begin{minipage}[t]{\textwidth}
-	\begin{lstlisting}[caption={Ejemplo de código (usando los estilos de la cátedra, ver las macros para más detalles)},label=code:for]
-res := 0;
-i := 0;
-while (i < s.size()) do
-	res := res + s[i];
-	i := i + 1
-endwhile
-	\end{lstlisting}
-%\end{minipage}
 
 %Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{code:for}.
 
@@ -181,7 +171,7 @@ endwhile
 	\requiere{n \geq 1}
 	\asegura{|conexion| = |C_0|}
 	\asegura{(\forall i,j : \ent)(0 \leq i,j < |conexion| \implicaLuego conexion[i][j] = conexion[j][i])}
-	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = C_0 \wedge (\forall i,j : \ent)(0 \leq i < |t| - 1 \wedge 0 \leq j < |t| \implicaLuego |t[i]|=|t[j]| \wedge \\esCuadrada(t[j]) \wedge APorBEsC(t[i], C_0, t[i+1])) \wedge conexion = t[n-1])}
+	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = C_0 \wedge (\forall i,j : \ent)(0 \leq i < |t| - 1 \wedge 0 \leq j < |t| \implicaLuego |t[i]|=|t[j]| \wedge \\ esCuadrada(t[j]) \wedge APorBEsC(t[i], C_0, t[i+1])) \wedge conexion = t[n-1])}
 \end{proc}
 
 \vspace{0.3cm}
@@ -205,6 +195,59 @@ endwhile
 \pred{esMinimo}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}, n: \ent, m: \ent}{(\forall w: \TLista{\ent})(esCamino(s, w, n, m) \implicaLuego sumaDistancias(s,t) \leq sumaDistancias(s,w))}
 \aux{sumaDistancias}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}}{\ent}{\sum\limits_{i=0}^{|t| - 2} s[t[i]][t[i+1]]}
 
+% Punto 2
+\section{Demostraciones de correctitud}
+
+% Demostracion punto 2.1
+\subsection{Demostrar que la implementacion es correcta con respecto a la especificacion}
+\begin{lstlisting}[label=implementacion-punto2]
+	res = 0
+	i = 0
+	while (i < ciudades.length) do
+		res = res + ciudades[i].habitantes
+		i = i + 1
+	endwhile
+\end{lstlisting}
+
+\vspace{0.3cm}
+
+Demostrar \{P\}S\{Q\} \\ Supongamos ciudades = [(a,10),(b,15)]
+
+\begin{table}[h!]
+	\begin{tabular}{| l | l | l |} 
+		\hline
+		Iteracion & i & res  \\ [0.5ex] 
+		\hline
+		0 & 0 & 0 \\ 
+		1 & 1 & 10 \\
+		2 & 2 & 10+15=25 \\
+		\hline
+	\end{tabular}
+	\captionsetup{singlelinecheck=off}
+	\caption{Tabla de iteracion}
+	\label{tab:ejemplo}
+\end{table}
+
+$I \equiv 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+
+$ P_c \equiv \{res = 0 \wedge i = 0\}$
+
+$ Q_c \equiv \{res = \sum\limits_{i=0}^{|c|-1} ciudades[i].habitantes\}$
+
+$ B = i < |ciudades|$
+
+\vspace{0.5cm}
+
+Paso 1 \\ $P_c \implies I ? \\ res = 0 \wedge i = 0 \implies 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+
+Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudades| \\ \bullet \ res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes = \sum\limits_{j=0}^{-1} ciudades[j].habitantes = 0 \implies res = 0$
+
+\vspace{0.5cm}
+
+Paso 2 \\ $\{I \wedge B\} S \{I\} $
+
+
+
 
 %\aux{auxiliarSuelto}{parametros}{tipoRes}{expresion}
 % \paraTodo{variable}{tipo}{expresion}
@@ -212,7 +255,5 @@ endwhile
 % Pueden tener [unalinea] para que no se divida en varias lineas
 %\pred{predSuelto}{parametros}{\paraTodo[unalinea]{variable}{tipo}{algo \implicaLuego expresion}}
 %\pred{predSuelto}{parametros}{\existe[unalinea]{variable}{tipo}{algo \yLuego expresion}}
-
-
 
 \end{document}

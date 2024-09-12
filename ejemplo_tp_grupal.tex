@@ -26,13 +26,6 @@
 
 \maketitle
 
-Lo principal: las fórmulas. Se puede poner en una linea, como $x_i = x_{i-1} + x_{i-2}$, o ponerse más grande:
-
-\begin{equation}
-	\sum\limits_{i=0}^{n} i
-	\label{eq:1}
-\end{equation}
-
 %Y se pueden citar ecuaciones con \verb|\eqref{nombreDeEq}|: \eqref{eq:1}
 
 Ejemplo de itemizado:
@@ -211,7 +204,11 @@ Le agregamos una separación entre párrafos. Le agregamos una separación entre
 
 \vspace{0.3cm}
 
-Demostrar \{P\}S\{Q\} \\ Supongamos ciudades = [(a,10),(b,15)]
+\textbf{Demostrar \{P\}S\{Q\}}
+
+\vspace{0.1cm}
+
+\noindent Supongamos ciudades = [(a,10),(b,15)]
 
 \begin{table}[h!]
 	\begin{tabular}{| l | l | l |} 
@@ -225,7 +222,7 @@ Demostrar \{P\}S\{Q\} \\ Supongamos ciudades = [(a,10),(b,15)]
 	\end{tabular}
 	\captionsetup{singlelinecheck=off}
 	\caption{Tabla de iteracion}
-	\label{tab:ejemplo}
+	\label{tab:iteracion}
 \end{table}
 
 $I \equiv 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
@@ -238,16 +235,29 @@ $ B = i < |ciudades|$
 
 \vspace{0.5cm}
 
-Paso 1 \\ $P_c \implies I ? \\ res = 0 \wedge i = 0 \implies 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+\textbf{Paso 1}
+
+\vspace{0.1cm}
+
+\noindent$P_c \implies I ? \\ res = 0 \wedge i = 0 \implies 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
 
 Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudades| \\ \bullet \ res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes = \sum\limits_{j=0}^{-1} ciudades[j].habitantes = 0 \implies res = 0$
 
 \vspace{0.5cm}
 
-Paso 2 \\ $\{I \wedge B\} S \{I\} $
+\textbf{Paso 2}
 
+\vspace{0.1cm}
 
+\noindent$\{I \wedge B\} S \{I\} \\ \{I \wedge B\} \implies wp(S,I)$
 
+\noindent$\bullet \ \{I \wedge B\} = \{0 \leq i < |ciudades| \wedge \sum\limits_{j=0}^{i-1} ciudades[j].habitantes\} \\ \bullet \ wp(S_1;S_2,I) = wp(S_1,wp(S_2,I))$
+
+\noindent$wp(S_2,I) = wp(i := i + i, 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(i+1) \yLuego 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+
+\vspace{0.5cm}
+
+\noindent$wp(S_1,wp(S_2,I)) \equiv wp(res := res + ciudades[i].habitantes, 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(ciudades) \wedge def(ciudades[i].habitantes) \yLuego 0 \leq i+1 \leq |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i < |ciudades| \yLuego 0 \leq i+1 \leq |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res + ciudades[i].habitantes = \sum\limits_{j=0}^{i} ciudades[j].habitantes$
 
 %\aux{auxiliarSuelto}{parametros}{tipoRes}{expresion}
 % \paraTodo{variable}{tipo}{expresion}

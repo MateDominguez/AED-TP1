@@ -26,85 +26,6 @@
 
 \maketitle
 
-%Y se pueden citar ecuaciones con \verb|\eqref{nombreDeEq}|: \eqref{eq:1}
-
-Ejemplo de itemizado:
-
-\begin{itemize}
-	\item Item 1
-	\item Item 2
-	\item Item 3
-\end{itemize}
-
-Ejemplo de enumerado con menor distancia entre items:
-
-\begin{enumerate} \setlength\itemsep{0cm}
-	\item Item 1
-	\item Item 2
-	\item Item 3
-\end{enumerate}
-
-Podemos escribir mucho texto. Mucho texto. Mucho texto. Mucho texto. Mucho texto. Mucho texto. Mucho texto. Mucho texto. Mucho texto. Mucho texto. Mucho texto.
-
-Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo. Otro párrafo.
-
-\vspace{0.3cm}
-
-Le agregamos una separación entre párrafos. Le agregamos una separación entre párrafos. Le agregamos una separación entre párrafos. Le agregamos una separación entre párrafos. Le agregamos una separación entre párrafos.
-
-\vspace{0.3cm}
-
-%La tabla \ref{tab:ejemplo} es un ejemplo de cómo se hace una tabla.
-
-\begin{table}[h!]
-	\centering
-	\begin{tabular}{||l c c r||} 
-		\hline
-		Col1 & Col2 & Col2 & Col3 \\ [0.5ex] 
-		\hline\hline
-		1 & 6 & 87837 & 787 \\ 
-		2 & 7 & 78 & 5415 \\
-		3 & 545 & 778 & 7507 \\
-		4 & 545 & 18744 & 7560 \\
-		5 & 88 & 788 & 6344 \\
-		\hline
-	\end{tabular}
-	\caption{Ejemplo de tabla}
-	\label{tab:ejemplo}
-\end{table}
-
-
-%La figura \ref{fig:subfigs} es un ejemplo de cómo se agrega una imagen.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{logo_dc.jpg}
-	\caption{Ejemplo de figura}
-	\label{fig:ejemplo}
-\end{figure}
-
-\begin{figure}[ht!]
-	\begin{subfigure}{0.5\textwidth}
-		\includegraphics[width=0.9\linewidth]{LaTeX-project} 
-		\caption{Logo de LaTeX}
-		\label{fig:subfig1}
-	\end{subfigure}
-	\begin{subfigure}{0.5\textwidth}
-		\includegraphics[width=0.7\linewidth]{TeX}
-		\caption{Logo de TeX}
-		\label{fig:subfig2}
-	\end{subfigure}
-	%\caption{Ejemplo para poner dos figuras juntas. Y citarlas por separado a (\subref{fig:subfig1}) y (\subref{fig:subfig2}).}
-	% OJO: el caption siempre va antes del label
-	\label{fig:subfigs}
-\end{figure}
-
-
-
-% Para hacer que quede todo en una misma linea, se puede usar minipage
-
-%Si se pone un label al \verb|lstlisting|, se puede referenciar: Código \ref{code:for}.
-
 % Punto 1
 \section{Especificacion}
 
@@ -188,6 +109,8 @@ Le agregamos una separación entre párrafos. Le agregamos una separación entre
 \pred{esMinimo}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}, n: \ent, m: \ent}{(\forall w: \TLista{\ent})(esCamino(s, w, n, m) \implicaLuego sumaDistancias(s,t) \leq sumaDistancias(s,w))}
 \aux{sumaDistancias}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}}{\ent}{\sum\limits_{i=0}^{|t| - 2} s[t[i]][t[i+1]]}
 
+\vspace{0.3cm}
+
 % Punto 2
 \section{Demostraciones de correctitud}
 
@@ -233,7 +156,7 @@ $ Q_c \equiv \{res = \sum\limits_{i=0}^{|c|-1} ciudades[i].habitantes\}$
 
 $ B = i < |ciudades|$
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \textbf{Paso 1}
 
@@ -243,7 +166,7 @@ $ B = i < |ciudades|$
 
 Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudades| \\ \bullet \ res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes = \sum\limits_{j=0}^{-1} ciudades[j].habitantes = 0 \implies res = 0$
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \textbf{Paso 2}
 
@@ -255,15 +178,8 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$wp(S_2,I) = wp(i := i + i, 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(i+1) \yLuego 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 \noindent$wp(S_1,wp(S_2,I)) \equiv wp(res := res + ciudades[i].habitantes, 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(ciudades) \wedge def(ciudades[i].habitantes) \yLuego 0 \leq i+1 \leq |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i < |ciudades| \yLuego 0 \leq i+1 \leq |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res + ciudades[i].habitantes = \sum\limits_{j=0}^{i} ciudades[j].habitantes$
-
-%\aux{auxiliarSuelto}{parametros}{tipoRes}{expresion}
-% \paraTodo{variable}{tipo}{expresion}
-% \existe{variable}{tipo}{expresion}
-% Pueden tener [unalinea] para que no se divida en varias lineas
-%\pred{predSuelto}{parametros}{\paraTodo[unalinea]{variable}{tipo}{algo \implicaLuego expresion}}
-%\pred{predSuelto}{parametros}{\existe[unalinea]{variable}{tipo}{algo \yLuego expresion}}
 
 \end{document}

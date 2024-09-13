@@ -193,15 +193,12 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$I \wedge \neg B \implies Q \ ? \\ (0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \wedge i \geq |ciudades|) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ (i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes $
 
-% Demostracion paso 2.2
-\subsection{Demostrar que el valor devuelto es mayor a 50.000}
 
-\vspace{0.3cm}
+%teorema de terminacion
+\textbf{Teorema de terminacion}
 
-\textbf{}
+\vspace{0.1cm}
 
-\vspace{0.3cm}
- 
 \textbf{Paso 1}
 
 \vspace{0.1cm}
@@ -210,5 +207,23 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$ f_v = |ciudades| - 1 $
 
-$P_c\{\} \\ Q_1: wp(S_1, Q_2) \\ S_1: res:= res + ciudades[i].habitantes \\ Q_2: wp(S_2, Q_1) \\ S_2: i:= i + 1 \\ Q \{res = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000\} \\ \\wp(i:= i+1, res= \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000) \equiv \\ def (i) \wedge def (1) \wedge res= \sum\limits_{j = 0}^{|c|-1} ciudaades[j].habitantes \wedge res > 50000 \equiv \\ res= \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000 \\ \\ wp(res= res + ciudades[i].habitantes, res\sum\limits_{j=0}^{|c|-1} ciudades[i].habitantes \wedge res > 50000) \equiv def*i \wedge def(c) \wedge (o <= i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \equiv \\ (0 <= i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \\ \\ Proponemos:\\ P_c: \{res = 0 \wedge i = 0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000 \} \\ \\Vemos:\\P_c \implies Q\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\}\implies \{res=\sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \\ \\ P_c \implies I\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \implies \{(0<= i <= |c|) \wedge res= \sum\limits_{j = 0}^{i-1} ciudades[j].habitantes\}$
+\noindent$ wp(S1,wp(S2,f_v<0)) \\  wp(res := res + ciudades[i].habitantes,wp(i := i + 1,|ciudades| - 1< V_0)) \equiv \\ wp(res := res + ciudades[i].habitantes, def (i) \wedge def(1)) \yLuego |ciudades|-(i + 1) < V_0 \equiv \\ wp(res := res + ciudades[i].habitantes,|ciudades|- i - 1 <  V_0) \equiv \\ def(res) \wedge def(ciudades) \wedge 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1  V_0 \equiv \\ 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1 < |ciudades| \equiv True $
+
+\vspace{0.3cm}
+
+\textbf{Paso 2}
+
+\vspace{0.1cm}
+
+\noindent$\{I \wedge f_v < 0\} \implies \neg B$
+
+\noindent$ 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \wedge |ciudades| - i < 0 \implies i >= |ciudades| \equiv \\ i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \wedge |ciudades| < i \implies i >= |ciudades| \equiv \\ i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \implies i >= |ciudades| \equiv \\ i = |ciudades| \implies i >= |ciudades| $
+
+% Demostracion paso 2.2
+\subsection{Demostrar que el valor devuelto es mayor a 50.000}
+
+\vspace{0.3cm}
+
+$P_c\{\} \\ Q_1: wp(S_1, Q_2) \\ S_1: res:= res + ciudades[i].habitantes \\ Q_2: wp(S_2, Q_1) \\ S_2: i:= i + 1 \\ Q \{res = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000\} \\ \\wp(i:= i+1, res= \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000) \equiv \\ def (i) \wedge def (1) \wedge res= \sum\limits_{j = 0}^{|c|-1} ciudaades[j].habitantes \wedge res > 50000 \equiv \\ res= \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000 \\ \\ wp(res= res + ciudades[i].habitantes, res\sum\limits_{j=0}^{|c|-1} ciudades[i].habitantes \wedge res > 50000) \equiv def(i)\wedge def(c) \wedge (o <= i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \equiv \\ (0 <= i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \\ \\ Proponemos:\\ P_c: \{res = 0 \wedge i = 0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000 \} \\ \\Vemos:\\P_c \implies Q\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\}\implies \{res=\sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \\ \\ P_c \implies I\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \implies \{(0<= i <= |c|) \wedge res= \sum\limits_{j = 0}^{i-1} ciudades[j].habitantes\}$
+
 \end{document}

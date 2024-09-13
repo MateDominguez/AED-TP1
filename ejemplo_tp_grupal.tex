@@ -13,10 +13,10 @@
 \materia{Algoritmos y Estructura de Datos}
 \grupo{Grupo HIBTAYIGAFWKBCHZLZPJ}
 
-\integrante{Dominguez, Mateo Felipe}{924/23}{matedominguez2@gmail.com}
+\integrante{Dominguez, Mateo Felipe}{923/24}{matedominguez2@gmail.com}
 \integrante{Morrone, Valentina}{35/24}{valenmorrone@hotmail.com}
-\integrante{, Nombre3}{003/01}{email3@dominio.com}
-\integrante{Cuiña, Carolina}{004/01}{cuinacarolina43@gmail.com}
+\integrante{Moran, Juana Gala}{119/24}{juanagalamoran.u@gmail.com}
+\integrante{Cuiña, Carolina}{874/24}{cuinacarolina43@gmail.com}
 
 % Declaramos donde van a estar las figuras
 % No es obligatorio, pero suele ser comodo
@@ -47,14 +47,14 @@
 \begin{proc}{sumaDeHabitantes}{\In menoresDeCiudades: \TLista{Ciudad}, \In mayoresDeCiudades: \TLista{Ciudad}}{\TLista{Ciudad}}
 	\requiere{\neg ciudadesRepetidas(menoresDeCiudades) \wedge \neg ciudadesRepetidas(mayoresDeCiudades)}
 	\requiere{mismasCiudades(menoresDeCiudades, mayoresDeCiudades)}
-	\asegura{|res| = |s_1|}
+	\asegura{mismasCiudades(res, menoresDeCiudades)}
 	\asegura{\neg ciudadesRepetidas(res)}
 	\asegura{(\forall i,j : \ent)(0 \leq i,j < |menoresDeCiudades| \yLuego menoresDeCiudades[i][0] = mayoresDeCiudades[j][0] \implicaLuego (res[i][1] = menoresDeCiudades[i][1] + mayoresDeCiudades[j][1])))}
 \end{proc}
 
 \vspace{0.3cm}
 
-\pred{mismasCiudades}{s: \TLista{Ciudad}, t: \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s_1| \implicaLuego (\exists j : \ent)(0 \leq j < |s_2| \yLuego s_1[i][0] = s_2[j][0]))}
+\pred{mismasCiudades}{s: \TLista{Ciudad}, t: \TLista{Ciudad}}{(\forall i : \ent)(0 \leq i < |s| \implicaLuego (\exists j : \ent)(0 \leq j < |t| \yLuego s[i][0] = t[j][0]))}
 
 \vspace{0.3cm}
 
@@ -64,14 +64,14 @@
 	\requiere{esCuadrada(distancias)}
 	\requiere{(\forall i,j : \ent)(0 \leq i,j < |s| \implicaLuego s[i][j] = s[j][i] \wedge s[i][j] \geq 0)}
 	\requiere{0 \leq desde,hasta < |distancias|}
-	\asegura{res = True \iff (\exists t : \TLista{\ent})(esCamino(distancias, t, desde, hasta))}
+	\asegura{res = True \iff (\exists \ camino : \TLista{\ent})(esCamino(distancias, camino, desde, hasta))}
 \end{proc}
 
 \vspace{0.3cm}
 
 \pred{esCuadrada}{A : \TLista{\TLista{\ent}}}{(\forall i : \ent)(0 \leq i < |A| \implicaLuego |A[i]| = |A|)}
 \vspace{0.1cm}
-\pred{esCamino}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}, n: \ent, m: \ent}{(2 \leq |t| \leq |s| \wedge t[0] = n \wedge t[|t|-1] = m \wedge (\forall i : \ent)(0 \leq i < |t|-1 \implicaLuego 0 \leq t[i] < |s| \wedge s[t[i]][t[i+1]] > 0))}
+\pred{esCamino}{s: \TLista{\TLista{\ent}}, t: \TLista{\ent}, n: \ent, m: \ent}{(2 \leq |t| \leq |s| \yLuego t[0] = n \yLuego t[|t|-1] = m \yLuego (\forall i : \ent)(0 \leq i < |t|-1 \implicaLuego 0 \leq t[i] < |s| \wedge s[t[i]][t[i+1]] > 0))}
 
 \vspace{0.3cm}
 
@@ -81,11 +81,11 @@
 	\requiere{conexion = C_0}
 	\requiere{esCuadrada(C_0)}
 	\requiere{(\forall i,j : \ent)(0 \leq i,j < |C_0|\implicaLuego(C_0[i][j] = C_0[j][i]\wedge(C_0[i][j] = 0 \vee C_0[i][j] = 1)))}
-	\requiere{(\forall i,j : \ent)(((0 \leq i,j < |C_0|)\wedge(i = j))\implicaLuego(C_0[i][j] = 0))}
+	\requiere{(\forall i,j : \ent)(0 \leq i,j < |C_0| \wedge i = j \implicaLuego C_0[i][j] = 0)}
 	\requiere{n \geq 1}
 	\asegura{|conexion| = |C_0|}
 	\asegura{(\forall i,j : \ent)(0 \leq i,j < |conexion| \implicaLuego conexion[i][j] = conexion[j][i])}
-	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = C_0 \wedge (\forall i,j : \ent)(0 \leq i < |t| - 1 \wedge 0 \leq j < |t| \implicaLuego |t[i]|=|t[j]| \wedge \\ esCuadrada(t[j]) \wedge APorBEsC(t[i], C_0, t[i+1])) \wedge conexion = t[n-1])}
+	\asegura{(\exists t : \TLista{\TLista{\TLista{\ent}}})(|t| = n \wedge t[0] = C_0 \yLuego (\forall i,j : \ent)(0 \leq i < |t| - 1 \wedge 0 \leq j < |t| \implicaLuego |t[i]|=|t[j]| \wedge \\ esCuadrada(t[j]) \wedge APorBEsC(t[i], C_0, t[i+1])) \wedge conexion = t[n-1])}
 \end{proc}
 
 \vspace{0.3cm}
@@ -100,7 +100,7 @@
 	\requiere{esCuadrada(distancias)}
 	\requiere{(\forall i,j : \ent)(0 \leq i,j < |s| \implicaLuego s[i][j] = s[j][i] \wedge s[i][j] \geq 0)}
 	\requiere{0 \leq origen,destino < |distancias|}
-	\asegura{res = \ensuremath{\langle\rangle} \iff \neg conectadas(distancias, origen, hasta)}
+	\asegura{res = \ensuremath{\langle\rangle} \iff \neg (\exists \ camino : \TLista{\ent})(esCamino(distancias, camino, origen, hasta))}
 	\asegura{esCamino(distancias, res, origen, destino) \wedge esMinimo(distancias, res, origen, destino)}
 \end{proc}
 

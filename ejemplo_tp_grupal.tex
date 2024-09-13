@@ -113,9 +113,6 @@
 
 % Punto 2
 \section{Demostraciones de correctitud}
-
-% Demostracion punto 2.1
-\subsection{Demostrar que la implementacion es correcta con respecto a la especificacion}
 \begin{lstlisting}[label=implementacion-punto2]
 	res = 0
 	i = 0
@@ -127,6 +124,8 @@
 
 \vspace{0.3cm}
 
+% Demostracion punto 2.1
+\subsection{Demostrar que la implementacion es correcta con respecto a la especificacion}
 \textbf{Demostrar \{P\}S\{Q\}}
 
 \vspace{0.1cm}
@@ -150,11 +149,11 @@
 
 $I \equiv 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
 
-$ P_c \equiv \{res = 0 \wedge i = 0\}$
+$ P_c \equiv res = 0 \wedge i = 0$
 
-$ Q_c \equiv \{res = \sum\limits_{i=0}^{|c|-1} ciudades[i].habitantes\}$
+$ Q_c \equiv res = \sum\limits_{i=0}^{|c|-1} ciudades[i].habitantes$
 
-$ B = i < |ciudades|$
+$ B \equiv i < |ciudades|$
 
 \vspace{0.3cm}
 
@@ -193,6 +192,8 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$I \wedge \neg B \implies Q \ ? \\ (0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \wedge i \geq |ciudades|) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ (i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes $
 
+\vspace{0.3cm}
+
 %teorema de terminacion
 \textbf{Teorema de terminacion}
 
@@ -206,7 +207,7 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$ f_v = |ciudades| - 1 $
 
-\vspace{0.4cm}
+\vspace{0.3cm}
 
 \noindent$ wp(S1,wp(S2,f_v<0)) \\  wp(res := res + ciudades[i].habitantes,wp(i := i + 1,|ciudades| - 1< V_0)) \equiv \\ wp(res := res + ciudades[i].habitantes, def (i) \wedge def(1)) \yLuego |ciudades|-(i + 1) < V_0 \equiv \\ wp(res := res + ciudades[i].habitantes,|ciudades|- i - 1 <  V_0) \equiv \\ def(res) \wedge def(ciudades) \wedge 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1  V_0 \equiv \\ 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1 < |ciudades| \equiv True $
 

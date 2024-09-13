@@ -158,28 +158,56 @@ $ B = i < |ciudades|$
 
 \vspace{0.3cm}
 
+% Paso 1
 \textbf{Paso 1}
 
 \vspace{0.1cm}
 
-\noindent$P_c \implies I ? \\ res = 0 \wedge i = 0 \implies 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+\noindent$P_c \implies I \ ? \\ res = 0 \wedge i = 0 \implies 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
 
-Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudades| \\ \bullet \ res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes = \sum\limits_{j=0}^{-1} ciudades[j].habitantes = 0 \implies res = 0$
+Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudades| \\ \bullet \ res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes = \sum\limits_{j=0}^{-1} ciudades[j].habitantes = 0 \implies res = 0 $
 
 \vspace{0.3cm}
 
+% Paso 2
 \textbf{Paso 2}
 
 \vspace{0.1cm}
 
-\noindent$\{I \wedge B\} S \{I\} \\ \{I \wedge B\} \implies wp(S,I)$
+\noindent$\{I \wedge B\} S \{I\} \\ \{I \wedge B\} \implies wp(S,I) \ ?$
 
 \noindent$\bullet \ \{I \wedge B\} = \{0 \leq i < |ciudades| \wedge \sum\limits_{j=0}^{i-1} ciudades[j].habitantes\} \\ \bullet \ wp(S_1;S_2,I) = wp(S_1,wp(S_2,I))$
 
-\noindent$wp(S_2,I) = wp(i := i + i, 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(i+1) \yLuego 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+\noindent$wp(S_2,I) = wp(i := i + i, 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(i+1) \yLuego 0 \leq i+1 \leq |ciudades| \yLuego res = \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes$
 
 \vspace{0.3cm}
 
-\noindent$wp(S_1,wp(S_2,I)) \equiv wp(res := res + ciudades[i].habitantes, 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(ciudades) \wedge def(ciudades[i].habitantes) \yLuego 0 \leq i+1 \leq |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i < |ciudades| \yLuego 0 \leq i+1 \leq |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res + ciudades[i].habitantes = \sum\limits_{j=0}^{i} ciudades[j].habitantes$
+\noindent$wp(S_1,wp(S_2,I)) \equiv wp(res := res + ciudades[i].habitantes, 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes) \equiv \\ def(ciudades) \wedge def(ciudades[i].habitantes) \yLuego 0 \leq i+1 \leq |ciudades| \yLuego res + ciudades[i].habitantes= \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i < |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res + ciudades[i].habitantes= \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res + ciudades[i].habitantes = \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes - ciudades[i].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+
+\vspace{0.3cm}
+
+% Paso 3
+\textbf{Paso 3}
+
+\vspace{0.1cm}
+
+\noindent$I \wedge \neg B \implies Q \ ? \\ (0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \wedge i \geq |ciudades|) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ (i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes $
+
+% Demostracion paso 2.2
+\subsection{Demostrar que el valor devuelto es mayor a 50.000}
+
+\vspace{0.3cm}
+
+\textbf{Teorema de terminacion}
+
+\vspace{0.3cm}
+ 
+\textbf{Paso 1}
+
+\vspace{0.1cm}
+
+\noindent$\{I \wedge B \wedge f_v = v_0\}S\{f_v < v_0\} \\ Verificamos \forall v_0, wp(S,f_v < v_0) \\ wp(S_1,wp(S_2,f_v < v_0))$
+
+\noindent$ f_v = |ciudades| - 1 $
 
 \end{document}

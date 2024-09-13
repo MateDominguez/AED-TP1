@@ -178,11 +178,10 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$\bullet \ \{I \wedge B\} = \{0 \leq i < |ciudades| \wedge \sum\limits_{j=0}^{i-1} ciudades[j].habitantes\} \\ \bullet \ wp(S_1;S_2,I) = wp(S_1,wp(S_2,I))$
 
-\noindent$wp(S_2,I) = wp(i := i + i, 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(i+1) \yLuego 0 \leq i+1 \leq |ciudades| \yLuego res = \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes$
-
-\vspace{0.3cm}
-
-\noindent$wp(S_1,wp(S_2,I)) \equiv wp(res := res + ciudades[i].habitantes, 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes) \equiv \\ def(ciudades) \wedge def(ciudades[i].habitantes) \yLuego 0 \leq i+1 \leq |ciudades| \yLuego res + ciudades[i].habitantes= \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i < |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res + ciudades[i].habitantes= \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res + ciudades[i].habitantes = \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes - ciudades[i].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+\begin{enumerate}
+	\item $wp(S_2,I) = wp(i := i + i, 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \equiv \\ def(i+1) \yLuego 0 \leq i+1 \leq |ciudades| \yLuego res = \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes$ 
+	\item $wp(S_1,wp(S_2,I)) \equiv wp(res := res + ciudades[i].habitantes, 0 \leq i+1 \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes) \equiv \\ def(ciudades) \wedge def(ciudades[i].habitantes) \yLuego 0 \leq i+1 \leq |ciudades| \yLuego res + ciudades[i].habitantes= \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i < |ciudades| \wedge 0 \leq i+1 \leq |ciudades| \wedge res + ciudades[i].habitantes= \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res + ciudades[i].habitantes = \sum\limits_{j=0}^{i} ciudades[j].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i} ciudades[j].habitantes - ciudades[i].habitantes \equiv \\ 0 \leq i \leq |ciudades| - 1 \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+\end{enumerate}
 
 \vspace{0.3cm}
 
@@ -191,23 +190,38 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \vspace{0.1cm}
 
-\noindent$I \wedge \neg B \implies Q \ ? \\ (0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \wedge i \geq |ciudades|) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ (i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes $
+\noindent$I \wedge \neg B \implies Q \ ?$
 
+\begin{enumerate}
+	\item $(0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes \wedge i \geq |ciudades|) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ (i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes) \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \equiv \\ res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \implies res = \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes$
+\end{enumerate}
+
+\vspace{0.3cm}
 
 %teorema de terminacion
 \textbf{Teorema de terminacion}
 
 \vspace{0.1cm}
 
+\noindent$ f_v = |ciudades| - i $
+
+\vspace{0.3cm}
+
 \textbf{Paso 1}
 
 \vspace{0.1cm}
 
-\noindent$\{I \wedge B \wedge f_v = v_0\}S\{f_v < v_0\} \\ Verificamos \forall v_0, wp(S,f_v < v_0) \\ wp(S_1,wp(S_2,f_v < v_0))$
+\noindent$\{I \wedge B \wedge f_v = v_0\}S\{f_v < v_0\}$
 
-\noindent$ f_v = |ciudades| - 1 $
+\vspace{0.1cm}
 
-\noindent$ wp(S1,wp(S2,f_v<0)) \\  wp(res := res + ciudades[i].habitantes,wp(i := i + 1,|ciudades| - 1< V_0)) \equiv \\ wp(res := res + ciudades[i].habitantes, def (i) \wedge def(1)) \yLuego |ciudades|-(i + 1) < V_0 \equiv \\ wp(res := res + ciudades[i].habitantes,|ciudades|- i - 1 <  V_0) \equiv \\ def(res) \wedge def(ciudades) \wedge 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1  V_0 \equiv \\ 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1 < |ciudades| \equiv True $
+\noindent$ Verificamos \ \forall \ v_0, \ wp(S,f_v < v_0)$
+
+\vspace{0.1cm}
+
+\begin{enumerate}
+	\item $wp(S_1,wp(S_2,f_v < v_0)) \equiv \\ wp(res := res + ciudades[i].habitantes,wp(i := i + 1,|ciudades| - i < V_0)) \equiv \\ wp(res := res + ciudades[i].habitantes, def (i) \wedge def(1)) \yLuego |ciudades|-(i + 1) < V_0 \equiv \\ wp(res := res + ciudades[i].habitantes,|ciudades|- i - 1 <  V_0) \equiv \\ def(res) \wedge def(ciudades) \wedge 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1 < V_0 \equiv \\ 0 \leq i < |ciudades| \yLuego |ciudades|- i - 1 < |ciudades| \equiv True $ 
+\end{enumerate}
 
 \vspace{0.3cm}
 
@@ -215,15 +229,26 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \vspace{0.1cm}
 
-\noindent$\{I \wedge f_v < 0\} \implies \neg B$
+\noindent$\{I \wedge f_v < 0\} \implies \neg B \ ?$
 
-\noindent$ 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \wedge |ciudades| - i < 0 \implies i \geq |ciudades| \equiv \\ i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \wedge |ciudades| < i \implies i \geq |ciudades| \equiv \\ i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \implies i \geq |ciudades| \equiv \\ i = |ciudades| \implies i \geq |ciudades| $
+\begin{enumerate}
+	\item $ 0 \leq i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \wedge |ciudades| - i < 0 \implies i \geq |ciudades| \equiv \\ i < |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \wedge |ciudades| < i \implies i \geq |ciudades| \equiv \\ i = |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades.[i].habitantes \implies i \geq |ciudades| \equiv \\ i = |ciudades| \implies i \geq |ciudades| $ 
+\end{enumerate}
+
+\pagebreak
 
 % Demostracion paso 2.2
 \subsection{Demostrar que el valor devuelto es mayor a 50.000}
 
 \vspace{0.3cm}
 
-$P_c\{\} \\ Q_1: wp(S_1, Q_2) \\ S_1: res:= res + ciudades[i].habitantes \\ Q_2: wp(S_2, Q_1) \\ S_2: i:= i + 1 \\ Q \{res = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000\} \\ \\wp(i:= i+1, res= \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000) \equiv \\ def (i) \wedge def (1) \wedge res= \sum\limits_{j = 0}^{|c|-1} ciudaades[j].habitantes \wedge res > 50000 \equiv \\ res= \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000 \\ \\ wp(res= res + ciudades[i].habitantes, res=\sum\limits_{j=0}^{|c|-1} ciudades[i].habitantes \wedge res > 50000) \equiv def(i)\wedge def(c) \wedge (o \leq i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \equiv \\ (0 \leq i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \\ \\ Proponemos:\\ P_c: \{res = 0 \wedge i = 0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000 \} \\ \\Vemos:\\P_c \implies Q\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\}\implies \{res=\sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \\ \\ P_c \implies I\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \implies \{(0 \leq i \leq |c|) \wedge res= \sum\limits_{j = 0}^{i-1} ciudades[j].habitantes\}$
+\noindent$P_c \equiv wp(S_1, Q_1) \\ S_1 \equiv res:= res + ciudades[i].habitantes \\ Q_1 \equiv wp(S_2, Q_c) \\ S_2 \equiv i:= i + 1 \\ Q_c \equiv res = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50{.}000$
+
+\begin{enumerate}
+	\item $wp(S_2,Q_c) \equiv wp(i:= i+1, res= \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50{.}000) \equiv \\ def (i) \wedge def (1) \wedge res= \sum\limits_{j = 0}^{|c|-1} ciudaades[j].habitantes \wedge res > 50{.}000 \equiv \\ res= \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \wedge res > 50{.}000$
+	\item $wp(S_1,Q_1) \equiv wp(res= res + ciudades[i].habitantes, res=\sum\limits_{j=0}^{|c|-1} ciudades[i].habitantes \wedge res > 50{.}000) \equiv def(i)\wedge def(c) \wedge (o \leq i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50{.}000 \equiv \\ (0 \leq i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50{.}000$
+\end{enumerate}
+
+\noindent$Proponemos:\\ P_c \equiv res = 0 \wedge i = 0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000 \\ \\ Vemos: \\ P_c \implies Q_c \\ (res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000)\implies res=\sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000 \\ \\ P_c \implies I\\ (res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000) \implies (0 \leq i \leq |c| \wedge res= \sum\limits_{j = 0}^{i-1} ciudades[j].habitantes)$
 
 \end{document}

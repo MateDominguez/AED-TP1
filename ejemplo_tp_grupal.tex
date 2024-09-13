@@ -148,7 +148,7 @@
 	\label{tab:iteracion}
 \end{table}
 
-$I \equiv 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
+$ I \equiv 0 \leq i \leq |ciudades| \wedge res = \sum\limits_{j=0}^{i-1} ciudades[j].habitantes$
 
 $ P_c \equiv \{res = 0 \wedge i = 0\}$
 
@@ -198,7 +198,7 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \vspace{0.3cm}
 
-\textbf{Teorema de terminacion}
+\textbf{}
 
 \vspace{0.3cm}
  
@@ -210,4 +210,5 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$ f_v = |ciudades| - 1 $
 
+$P_c\{\} \\ Q_1: wp(S_1, Q_2) \\ S_1: res:= res + ciudades[i].habitantes \\ Q_2: wp(S_2, Q_1) \\ S_2: i:= i + 1 \\ Q \{res = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000\} \\ \\wp(i:= i+1, res= \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000) \equiv \\ def (i) \wedge def (1) \wedge res= \sum\limits_{j = 0}^{|c|-1} ciudaades[j].habitantes \wedge res > 50000 \equiv \\ res= \sum\limits_{j=0}^{|c|-1} ciudades[j].habitantes \wedge res > 50000 \\ \\ wp(res= res + ciudades[i].habitantes, res\sum\limits_{j=0}^{|c|-1} ciudades[i].habitantes \wedge res > 50000) \equiv def*i \wedge def(c) \wedge (o <= i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \equiv \\ (0 <= i < |c|) \yLuego res + ciudades[i].habitantes = \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes \wedge res + ciudades[i].habitantes > 50000 \\ \\ Proponemos:\\ P_c: \{res = 0 \wedge i = 0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000 \} \\ \\Vemos:\\P_c \implies Q\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\}\implies \{res=\sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \\ \\ P_c \implies I\\ \{res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50000\} \implies \{(0<= i <= |c|) \wedge res= \sum\limits_{j = 0}^{i-1} ciudades[j].habitantes\}$
 \end{document}

@@ -251,4 +251,8 @@ Analizamos variable a variable: \\ $\bullet \ i = 0 \implies 0 \leq i < |ciudade
 
 \noindent$Proponemos:\\ P_c \equiv res = 0 \wedge i = 0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000 \\ \\ Vemos: \\ P_c \implies Q_c \\ (res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000)\implies res=\sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000 \\ \\ P_c \implies I\\ (res=0 \wedge i=0 \wedge \sum\limits_{j = 0}^{|c|-1} ciudades[j].habitantes > 50{.}000) \implies (0 \leq i \leq |c| \wedge res= \sum\limits_{j = 0}^{i-1} ciudades[j].habitantes)$
 
+\vspace{0.3cm}
+
+\noindent$Por \ ultimo, tenemos \ que: \\ P \equiv (\exists i : \ent)(0 \leq i < |ciudades| \yLuego ciudades[i].habitantes > 50{.}000) \wedge (\forall i : \ent)(0 \leq i < |ciudades| \implicaLuego ciudades[i].habitantes \geq 0) \wedge (\forall i : \ent)(\forall j : \ent)(0 \leq i < j < |ciudades| \implicaLuego ciudades[i].nombre = ciudades[j].nombre) \\ Veamos: \\ P_c \implies P \ ? \\ (res = 0 \wedge i = 0) \implies i = 0 \implies P$
+
 \end{document}

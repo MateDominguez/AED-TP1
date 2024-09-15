@@ -38,3 +38,5 @@
 !.gitignore
 !*.jpg
 !*.png
+
+!*ejemplo_tp_grupal.pdf
